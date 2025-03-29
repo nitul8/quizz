@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-    --background: #ffffff;
+    --background: #fffdf4;
     --foreground: #171717;
 }
 
@@ -23,4 +23,5 @@ body {
     font-weight: bold;
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
         1px 1px 0 black;
+    font-family: var(--font-chewy);
 }
