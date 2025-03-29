@@ -14,31 +14,17 @@ const Navbar = () => {
     return (
         <>
             <nav className="w-full flex justify-center items-center fixed z-10 ">
-                <div className="w-full md:w-4/5 flex justify-between items-center border-b py-2">
+                <div className="w-full md:w-4/5 flex justify-between items-center border-b border-gray-200">
                     {/* Logo Section */}
                     <Link href="/" className="flex items-center">
-                        <p className="font-extrabold text-6xl text-red-400 outlined-text font-[family-name:var(--font-chewy)]">
-                            Q
-                        </p>
-                        <p className="font-extrabold text-7xl text-blue-400 outlined-text font-[family-name:var(--font-chewy)]">
-                            u
-                        </p>
-                        <p className="font-extrabold text-7xl text-pink-400 outlined-text font-[family-name:var(--font-chewy)]">
-                            i
-                        </p>
-                        <p className="font-extrabold text-7xl text-yellow-400 outlined-text font-[family-name:var(--font-chewy)]">
-                            z
-                        </p>
-                        <p className="font-extrabold text-7xl text-green-400 outlined-text font-[family-name:var(--font-chewy)]">
-                            z
-                        </p>
-                        <p className="font-extrabold text-6xl text-white outlined-text font-[family-name:var(--font-chewy)]">
-                            y
-                        </p>
+                        <p className="text-red-400 outlined-text">Q</p>
+                        <p className="text-blue-400 outlined-text">u</p>
+                        <p className="text-pink-400 outlined-text">i</p>
+                        <p className="text-yellow-400 outlined-text">z</p>
+                        <p className="text-green-400 outlined-text">z</p>
                     </Link>
 
                     {/* Navigation Links */}
-
                     <div className="flex items-center space-x-3">
                         {/* Search Box */}
                         <div className="flex items-center justify-end relative">
@@ -59,7 +45,7 @@ const Navbar = () => {
 
                         {/* Sign-in Button */}
                         <Link
-                            href="/signin"
+                            href="/"
                             className="cursor-pointer transition-all bg-lime-400 px-6 py-2 rounded-2xl border-lime-600 border-b-[4px] 
                         hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] 
                         active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
