@@ -1,141 +1,103 @@
-"use client";
-import {useState} from "react";
-import Link from "next/link";
-import {FaApple} from "react-icons/fa";
-import {FcGoogle} from "react-icons/fc";
+'use client';
+import React, { useState } from "react";
+import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
+import { initializeApp } from "firebase/app";
 
-function Signup() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-        if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
+const Form = () => {
+  const [showPassword, setShowPassword] = useState(false);
 
-        const response = await fetch("http://localhost:3000/api/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name: formData.name,
-                email: formData.email,
-                password: formData.password,
-            }),
-        });
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log("User Info:", result.user);
+      alert(`Signed in as ${result.user.displayName}`);
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+    }
+  };
 
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data.message || "Signup failed");
-        }
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+  <div className="flex flex-col items-center bg-[#d1d0ce] p-12 border rounded-2xl shadow-md w-full max-w-[600px]">
+    
+    <h2 className="text-3xl font-bold mb-6 text-black">Sign in</h2>
 
-        setFormData({
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-        });
-    };
+    {/* Google Sign-In Button */}
+    <button 
+      className="flex items-center w-full px-8 py-4 rounded-2xl bg-[#e5e3db] border-b-[4px] 
+      bg-[#e5e3db] transition-all hover:brightness-110 active:border-b-[2px] active:brightness-90 relative"
+      onClick={handleGoogleSignIn}
+    >
+      {/* Google Icon - Positioned on the Left */}
+      <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" 
+        className="absolute left-6 w-6 h-6" />
+      
+      {/* Button Text - Centered */}
+      <span className="w-full text-center font-semibold text-black">Continue with Google</span>
+    </button>
 
-    const handleChange = (e: React.FormEvent) => {
-        setFormData({
-            ...formData,
-            [(e.target as HTMLInputElement).name]: (
-                e.target as HTMLInputElement
-            ).value,
-        });
-    };
+    <p className="text-gray-600 mb-4 mt-6">Or sign in with email</p>
 
-    return (
-        <div className="flex justify-center items-center h-screen bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border-4 border-white mt-14">
-                <p className="text-center text-2xl font-extrabold">
-                    Create Your Account
-                </p>
-                <form
-                    className="flex flex-col mt-6 gap-4"
-                    onSubmit={handleSubmit}
-                >
-                    <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full p-4 bg-white border-none rounded-xl shadow-orange-100 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Full Name"
-                    />
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full p-4 bg-white border-none rounded-xl shadow-orange-100 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Email"
-                    />
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="w-full p-4 bg-white border-none rounded-xl shadow-orange-100 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Create Password"
-                    />
-                    <input
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        required
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        className="w-full p-4 bg-white border-none rounded-xl shadow-orange-100 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Confirm Password"
-                    />
-                    <button
-                        type="submit"
-                        className="w-full bg-gradient-to-br from-red-500 via-orange-400 to-yellow-500 text-white py-3 rounded-xl shadow-orange-100 shadow-lg font-bold hover:scale-105 transition"
-                    >
-                        Create Your Account
-                    </button>
-                </form>
-                <p className="text-center text-sm text-gray-500 mt-6">
-                    Already have an account?{" "}
-                    <Link
-                        href="/login"
-                        className="text-orange-600 font-bold cursor-pointer underline"
-                    >
-                        Log in
-                    </Link>
-                </p>
-                <div className="mt-6 text-center text-gray-500 text-sm">
-                    Or Sign up with
-                </div>
-                <div className="flex justify-center gap-4 mt-4">
-                    <button className="p-3 bg-black text-white rounded-full shadow-orange-100 shadow-md border-4 border-white hover:scale-110 transition">
-                        <FaApple className="text-xl" />
-                    </button>
-                    <button className="p-3 bg-gray-100 text-gray-600 rounded-full shadow-orange-100 shadow-md border-4 border-white hover:scale-110 transition">
-                        <FcGoogle className="text-xl" />
-                    </button>
-                </div>
-            </div>
+    {/* Sign-In Form */}
+    <form className="w-full space-y-5">
+      <div className="flex flex-col w-full">
+        <label className="font-semibold text-gray-700 text-lg " htmlFor="email"></label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          className=" rounded-md p-4 focus:outline-none w-full bg-[#e5e3db] text-gray-500"
+        />
+      </div>
+      <div className="flex flex-col w-full">
+        <label className="font-semibold text-gray-700 text-lg" htmlFor="password"></label>
+        <input
+          type={showPassword ? "text" : "password"}
+          id="password"
+          placeholder="Enter your password"
+          className=" rounded-md p-4 focus:outline-none w-full bg-[#e5e3db] text-gray-500"
+        />
+        <div className="flex items-center mt-2">
+          <input 
+            type="checkbox" 
+            id="showPassword" 
+            checked={showPassword} 
+            onChange={() => setShowPassword(!showPassword)} 
+            className="mr-2 w-4 h-4"
+          />
+          <label htmlFor="showPassword" className="text-sm  text-gray-500" >Show</label>
         </div>
-    );
-}
+      </div>
 
-export default Signup;
+      {/* Sign-In Button - Same Width as Google Button */}
+      <button className="flex justify-center items-center w-full px-8 py-4 rounded-2xl border-green-800 border-b-[4px] 
+        bg-[#00a76d] transition-all text-white font-bold hover:bg-[#00a74a]">
+        Sign in
+      </button>
+
+      <div className="flex justify-between text-center text-sm mt-4">
+        <p className=" text-gray-500">No account? <a href="#" className="text-blue-600 font-semibold  text-gray-500">Create here</a></p>
+        <p><a href="#" className="text-blue-600 font-semibold  text-gray-500" >Forgot password?</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  );
+};
+
+export default Form;
