@@ -47,7 +47,11 @@ const Signup = () => {
             console.log("User Info:", result.user);
             alert(`Signed up as ${result.user.displayName}`);
         } catch (err) {
-            setError(err.message);
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("An unknown error occurred.");
+            }
         } finally {
             setLoading(false);
         }
@@ -75,7 +79,11 @@ const Signup = () => {
             console.log("User created:", user);
             alert(`Account created for ${user.displayName}`);
         } catch (err) {
-            setError(err.message);
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("An unknown error occurred.");
+            }
         } finally {
             setLoading(false);
         }
