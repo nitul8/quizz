@@ -4,6 +4,18 @@ import Link from "next/link";
 import {IoMdSearch} from "react-icons/io";
 import Image from "next/image";
 
+const Topics = [
+    {id: 1, logo: "/Nav/start.svg", name: "Start", link: "/"},
+    {id: 2, logo: "/Nav/sports.svg", name: "Sports", link: "/"},
+    {id: 3, logo: "/Nav/entertainment.svg", name: "Mythology", link: "/"},
+    {id: 4, logo: "/Nav/art.svg", name: "Art & Literature", link: "/"},
+    {id: 5, logo: "/Nav/geography.svg", name: "Geography", link: "/"},
+    {id: 6, logo: "/Nav/history.svg", name: "History", link: "/"},
+    {id: 7, logo: "/Nav/languages.svg", name: "Languages", link: "/"},
+    {id: 8, logo: "/Nav/trivia.svg", name: "Trivia", link: "/"},
+    {id: 9, logo: "/Nav/science.svg", name: "Science & Nature", link: "/"},
+];
+
 const Navbar = () => {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -45,7 +57,7 @@ const Navbar = () => {
 
                         {/* Sign-in Button */}
                         <Link
-                            href="/"
+                            href="/signup"
                             className="cursor-pointer transition-all bg-lime-400 px-6 py-2 rounded-2xl border-lime-600 border-b-[4px] 
                         hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] 
                         active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
@@ -56,98 +68,22 @@ const Navbar = () => {
                 </div>
             </nav>
             <nav className="w-full flex justify-center items-center fixed mt-24 z-10 ">
-                <div className="hidden md:block"></div>
-                <div className="md:w-4/5 flex justify-between items-center py-2 ">
-                    <Link href="/" className="flex items-center flex-col m-1 ">
-                        <Image
-                            src="/Nav/start.svg"
-                            alt="start"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Start</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/sports.svg"
-                            alt="sports"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Sports</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/entertainment.svg"
-                            alt="mythology"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Mythology</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/art-and-literature.svg"
-                            alt="art"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Art & Literature</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/geography.svg"
-                            alt="geography"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Geography</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/history.svg"
-                            alt="history"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">History</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/languages.svg"
-                            alt="languages"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Languages</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/trivia.svg"
-                            alt="trivia"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Trivia</p>
-                    </Link>
-                    <Link href="/" className="flex items-center flex-col m-1">
-                        <Image
-                            src="/Nav/science-and-nature.svg"
-                            alt="science"
-                            height={32}
-                            width={32}
-                            className="h-8 w-8"
-                        />
-                        <p className="font-bold text-xs">Science & Nature</p>
-                    </Link>
+                <div className="hidden md:w-4/5 md:flex justify-between items-center py-2 ">
+                    {Topics.map((props) => (
+                        <Link
+                            key={props.id}
+                            href={props.link}
+                            className="flex items-center flex-col m-1 "
+                        >
+                            <Image
+                                src={props.logo}
+                                alt={props.name}
+                                height={32}
+                                width={32}
+                            />
+                            <p className="font-bold text-xs">{props.name}</p>
+                        </Link>
+                    ))}
                 </div>
             </nav>
         </>
