@@ -1,6 +1,6 @@
-'use client';
+"use client";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import Link from "next/link";
 import {FaApple} from "react-icons/fa";
 import {FcGoogle} from "react-icons/fc";
 
@@ -12,53 +12,45 @@ function Signup() {
         confirmPassword: "",
     });
 
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-
-    const handleSubmit = async (e:React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError("");
-        setSuccess("");
 
         if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match!");
+            alert("Passwords do not match!");
             return;
         }
 
-        try {
-            const response = await fetch("http://localhost:3000/api/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    password: formData.password,
-                }),
-            });
+        const response = await fetch("http://localhost:3000/api/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+            }),
+        });
 
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.message || "Signup failed");
-            }
-
-            setSuccess("Account created successfully!");
-            setFormData({
-                name: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-            });
-        } catch (error) {
-            setError(error.message);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message || "Signup failed");
         }
+
+        setFormData({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+        });
     };
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.FormEvent) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value,
+            [(e.target as HTMLInputElement).name]: (
+                e.target as HTMLInputElement
+            ).value,
         });
     };
 
@@ -124,7 +116,7 @@ function Signup() {
                 <p className="text-center text-sm text-gray-500 mt-6">
                     Already have an account?{" "}
                     <Link
-                        to="/login"
+                        href="/login"
                         className="text-orange-600 font-bold cursor-pointer underline"
                     >
                         Log in
