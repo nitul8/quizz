@@ -37,7 +37,7 @@ const Form = () => {
 
     {/* Google Sign-In Button */}
     <button 
-      className="flex items-center w-full px-8 py-4 rounded-2xl bg-[#e5e3db] border-b-[4px] 
+      className="flex items-center w-full px-8 py-4 rounded-2xl  border-b-[4px] 
       bg-[#e5e3db] transition-all hover:brightness-110 active:border-b-[2px] active:brightness-90 relative"
       onClick={handleGoogleSignIn}
     >
@@ -89,8 +89,8 @@ const Form = () => {
       </button>
 
       <div className="flex justify-between text-center text-sm mt-4">
-        <p className=" text-gray-500">No account? <a href="/signup" className="text-blue-600 font-semibold  text-gray-500">Create here</a></p>
-        <p><a href="#" className="text-blue-600 font-semibold  text-gray-500" >Forgot password?</a></p>
+        <p className=" text-gray-500">No account? <a href="/signup" className=" font-semibold  text-gray-500">Create here</a></p>
+        <p><a href="#" className=" font-semibold  text-gray-500" >Forgot password?</a></p>
       </div>
     </form>
   </div>
