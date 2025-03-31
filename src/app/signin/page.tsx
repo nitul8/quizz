@@ -89,7 +89,7 @@ const Form = () => {
       </button>
 
       <div className="flex justify-between text-center text-sm mt-4">
-        <p className=" text-gray-500">No account? <a href="#" className="text-blue-600 font-semibold  text-gray-500">Create here</a></p>
+        <p className=" text-gray-500">No account? <a href="/signup" className="text-blue-600 font-semibold  text-gray-500">Create here</a></p>
         <p><a href="#" className="text-blue-600 font-semibold  text-gray-500" >Forgot password?</a></p>
       </div>
     </form>
